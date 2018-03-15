@@ -13,11 +13,28 @@ Created on Mon Mar 12 07:35:11 2018
 import os 
 import pandas as pd 
 
+
+if __name__ == '__main__':
+    # You should not modify this part.
+    import argparse
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--training',
+                        default='training_data.csv',
+                        help='input training data file name')
+    parser.add_argument('--testing',
+                        default='testing_data.csv',
+                        help='input testing data file name')
+    parser.add_argument('--output',
+                        default='output.csv',
+                        help='output file name')
+    args = parser.parse_args()
  
 ################################training##################################### 
 """ 
 userhome = os.path.expanduser('~') 
 traing_data_path = userhome+"/Desktop/training_data.csv" 
+traing_data_path = args.training
 
 training_data = pd.read_csv(traing_data_path,header=None) 
 training_data.columns=["open","high","low","close"] 
@@ -52,8 +69,9 @@ for i  in range(len(training_simple_5.index)):
         print("0") 
  """ 
 ################################testing#################################### 
-userhome = os.path.expanduser('~') 
-testing_data_path = userhome+"/Desktop/testing_data.csv" 
+#userhome = os.path.expanduser('~') 
+#testing_data_path = userhome+"/Desktop/testing_data.csv" 
+testing_data_path = args.testing
 
 testing_data = pd.read_csv(testing_data_path,header=None) 
 testing_data.columns=["open","high","low","close"] 
@@ -85,28 +103,13 @@ for i  in range(len(testing_simple_5.index)):
          
 testing_action=pd.DataFrame(testing_action) 
 testing_action = testing_action[:-1] 
-path = userhome+"/Desktop/output.csv" 
+#path = userhome+"/Desktop/output.csv" 
+path = args.output
 testing_action.to_csv(path,sep=' ',header=0,index=0) 
 
      
-############################################################################# 
 
-if __name__ == '__main__': 
-    # You should not modify this part. 
-    import argparse 
 
-    parser = argparse.ArgumentParser() 
-    parser.add_argument('--training', 
-                       default='training_data.csv', 
-                       help='input training data file name') 
-    parser.add_argument('--testing', 
-                        default='testing_data.csv', 
-                        help='input testing data file name') 
-    parser.add_argument('--output', 
-                        default='output.csv', 
-                        help='output file name') 
-    args = parser.parse_args()
-    
 
 
 # # Use moving average method(5  and 20 days)  to forecast the stock when to reverse the trend  and then provide the suggestion to invest or sell , the method is to recognize the cross point and slot status 
